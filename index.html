@@ -236,6 +236,17 @@ body:not(.past) .nav a.active::before{background:#fff}
   .tags{grid-column:1/-1;justify-content:flex-start;margin-top:12px}
 }
 @media (max-width:767px){.hero .meta{flex-direction:column;gap:32px}.banner{aspect-ratio:4/3}}
+/* lite mode: touch devices and narrow screens. SVG turbulence filters, blur reveals and a fixed multiply-blend layer are too heavy for mobile Safari, so chalk texture comes from a static grain bitmap instead */
+@media (hover:none),(pointer:coarse),(max-width:1023px){
+  body::before{display:none}
+  .reveal{filter:none;animation-name:rise}
+  svg [filter]{filter:none}
+  svg rect[filter="url(#smudge)"],svg rect[filter="url(#grainbg)"]{display:none}
+  .hero-art::after,.banner::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.9;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='1' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .55 -.2'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>")}
+  .a-watch,.a-sun,.a-cloud,.a-extra,.a-shadow,.tw,.tw-s{animation-iteration-count:1}
+  .spin{animation-duration:90s}
+}
 @media (prefers-reduced-motion:reduce){.draw{animation:none;stroke-dashoffset:0}.art g,.spin,.hand-m,.hand-h,.tw,.tw-s,.fl{animation:none!important}}
 </style>
 </head>
