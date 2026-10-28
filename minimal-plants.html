@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Monalisa Thakur | Product Designer, Bangalore</title>
+<meta name="description" content="Monalisa Thakur is a product designer in Bangalore who builds for clarity and simplicity.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff;
+  --ink:#141414;
+  --mute:#5c5c5c;
+  --line:#e4e4e4;
+  --accent:#1f3a8a;
+  --serif:"Newsreader",Georgia,serif;
+  --sans:"IBM Plex Sans",Helvetica,Arial,sans-serif;
+  --ease:cubic-bezier(0.16,1,0.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:400 19px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1040px;margin:0 auto;padding:0 32px}
+
+/* header */
+header{padding:36px 0}
+header .wrap{display:flex;justify-content:space-between;align-items:baseline}
+.name{font:500 20px var(--sans);letter-spacing:-.01em}
+nav{display:flex;gap:32px;font-size:18px;color:var(--mute)}
+nav a{transition:color .3s var(--ease)}
+nav a:hover{color:var(--ink)}
+
+/* hero */
+.hero{padding:120px 0 104px}
+.hero h1{font:400 clamp(40px,6.4vw,76px)/1.1 var(--serif);letter-spacing:-.025em;max-width:15em}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px;margin-top:88px;padding-top:32px;border-top:1px solid var(--line)}
+.facts dt{font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin-bottom:8px}
+.facts dd{font-size:19px;line-height:1.5}
+
+/* work */
+section{padding:0 0 112px}
+.label{font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);padding-bottom:20px;border-bottom:1px solid var(--ink)}
+.proj{display:grid;grid-template-columns:72px 1fr 1.25fr;gap:32px;padding:44px 0;border-bottom:1px solid var(--line);transition:padding-left .6s var(--ease)}
+.proj:hover{padding-left:12px}
+.proj .no{font-size:16px;color:var(--mute);padding-top:10px;font-variant-numeric:tabular-nums}
+.proj h2{font:400 32px/1.2 var(--serif);letter-spacing:-.015em}
+.proj .tags{margin-top:14px;font-size:16px;color:var(--mute)}
+.proj p{color:#2b2b2b;max-width:30em}
+.proj:hover h2{color:var(--accent)}
+.proj h2,.proj{transition-property:color,padding-left}
+
+/* about */
+.about{display:grid;grid-template-columns:72px 1fr;gap:32px}
+.about .label{grid-column:1/-1;margin-bottom:44px}
+.about p{grid-column:2;font:400 clamp(24px,3vw,32px)/1.4 var(--serif);letter-spacing:-.01em;max-width:24em}
+.about p+p{margin-top:24px;font:400 19px/1.65 var(--sans);color:var(--mute);max-width:34em;letter-spacing:0}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding:40px 0 64px;color:var(--mute);font-size:17px}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+footer a{color:var(--ink);border-bottom:1px solid var(--line);transition:border-color .3s var(--ease)}
+footer a:hover{border-color:var(--ink)}
+.links{display:flex;gap:28px}
+
+
+/* cursor + preview (fine pointers only) */
+.cur-dot,.cur-ring,.preview{display:none}
+@media (hover:hover) and (pointer:fine){
+  html.has-cursor,html.has-cursor a{cursor:none}
+  .cur-dot,.cur-ring{display:block;position:fixed;left:0;top:0;pointer-events:none;z-index:50;opacity:0;transition:opacity .4s var(--ease)}
+  html.cur-on .cur-dot,html.cur-on .cur-ring{opacity:1}
+  .cur-dot{width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:var(--ink);transition:opacity .4s var(--ease),width .4s var(--ease),height .4s var(--ease),margin .4s var(--ease),background .3s}
+  .cur-ring{width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;border:1.5px solid var(--ink);display:grid;place-items:center;font:500 14px var(--sans);letter-spacing:.02em;color:transparent;
+    transition:opacity .4s var(--ease),width .6s var(--ease),height .6s var(--ease),margin .6s var(--ease),background .4s var(--ease),border-color .4s var(--ease),color .3s}
+  html.cur-link .cur-ring{width:60px;height:60px;margin:-30px 0 0 -30px;border-color:var(--accent)}
+  html.cur-link .cur-dot{background:var(--accent)}
+  html.cur-proj .cur-ring{width:88px;height:88px;margin:-44px 0 0 -44px;background:var(--ink);color:#fff}
+  html.cur-proj .cur-dot{opacity:0}
+  html.cur-down .cur-ring{width:30px;height:30px;margin:-15px 0 0 -15px}
+  html.cur-proj.cur-down .cur-ring{width:76px;height:76px;margin:-38px 0 0 -38px}
+
+  .preview{display:block;position:fixed;left:0;top:0;width:340px;height:255px;pointer-events:none;z-index:40;opacity:0;overflow:hidden;border-radius:6px;box-shadow:0 18px 50px -18px rgba(0,0,0,.35),0 0 0 1px var(--line);
+    clip-path:inset(0 0 100% 0);transition:opacity .35s var(--ease),clip-path .7s var(--ease);will-change:transform}
+  .preview.show{opacity:1;clip-path:inset(0 0 0 0)}
+  .preview svg{display:block;width:100%;height:100%}
+  .thumb{display:none}
+}
+@media (hover:none),(pointer:coarse){
+  .thumb{display:block;grid-column:1/-1;margin-top:12px;border-radius:6px;overflow:hidden;box-shadow:0 0 0 1px var(--line)}
+  .thumb svg{display:block;width:100%;height:auto}
+}
+
+/* plant shadow toggle: far plants soft and faint, near plants crisper; both faded behind the text column */
+.shade.far{filter:blur(10px)}
+.shade.near{filter:blur(4px)}
+.shade{transform:scale(1.05);-webkit-mask-image:linear-gradient(90deg,#000 0,#000 calc(50% - 620px),rgba(0,0,0,.1) calc(50% - 440px),rgba(0,0,0,.1) calc(50% + 440px),#000 calc(50% + 620px),#000 100%);mask-image:linear-gradient(90deg,#000 0,#000 calc(50% - 620px),rgba(0,0,0,.1) calc(50% - 440px),rgba(0,0,0,.1) calc(50% + 440px),#000 calc(50% + 620px),#000 100%)}
+@media (max-width:1100px){html.shade-on .shade.far{opacity:.045}html.shade-on .shade.near{opacity:.07}}
+@media (max-width:820px){.shade.near{display:none}}
+.shade,.grain{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:-1;opacity:0;transition:opacity 1.6s var(--ease)}
+.grain{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+html.shade-on .shade.far{opacity:.07}
+html.shade-on .shade.near{opacity:.11}
+html.shade-on .grain{opacity:.045}
+.shade-btn{position:fixed;right:20px;bottom:20px;z-index:30;width:46px;height:46px;border-radius:50%;border:1.5px solid var(--ink);background:rgba(255,255,255,.85);color:var(--ink);display:grid;place-items:center;cursor:pointer;padding:0;transition:background .4s var(--ease),color .4s var(--ease),transform .6s var(--ease)}
+.shade-btn:hover{transform:rotate(-12deg) scale(1.06)}
+.shade-btn[aria-pressed="true"]{background:var(--ink);color:#fff}
+.shade-btn svg{width:22px;height:22px}
+html.has-cursor .shade-btn{cursor:none}
+
+/* small touches of character */
+nav a{position:relative}
+nav a::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:1.5px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease)}
+nav a:hover::after{transform:scaleX(1)}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.proj .no{transition:color .4s var(--ease),transform .6s var(--ease)}
+.proj:hover .no{color:var(--accent);transform:translateX(4px)}
+.proj{opacity:0;transform:translateY(18px)}
+.proj.in{opacity:1;transform:none;transition:opacity .9s var(--ease),transform .9s var(--ease),padding-left .6s var(--ease),color .3s}
+@media (prefers-reduced-motion:reduce){.proj{opacity:1;transform:none}}
+
+a:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+
+/* entrance: one quiet sequence, hero only */
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.hero h1,.facts{animation:rise 1.1s var(--ease) both}
+.facts{animation-delay:.18s}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+
+@media (max-width:820px){
+  body{font-size:18px}
+  .wrap{padding:0 22px}
+  header{padding:24px 0}
+  nav{gap:22px;font-size:17px}
+  .hero{padding:72px 0 72px}
+  .facts{grid-template-columns:1fr;gap:24px;margin-top:56px}
+  section{padding-bottom:80px}
+  .proj{grid-template-columns:1fr;gap:12px;padding:32px 0}
+  .proj:hover{padding-left:0}
+  .proj .no{padding-top:0}
+  .proj h2{font-size:28px}
+  .proj .tags{margin-top:6px}
+  .about{grid-template-columns:1fr}
+  .about p{grid-column:1}
+}
+</style>
+</head>
+<body>
+
+<canvas class="shade far" aria-hidden="true"></canvas><canvas class="shade near" aria-hidden="true"></canvas><div class="grain" aria-hidden="true"></div>
+<button class="shade-btn" type="button" aria-pressed="false" aria-label="Toggle plant shadow background" title="Plant shadow">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V11"/><path d="M12 14c-4 0-6-2.500-6-6 4 0 6 2 6 6z"/><path d="M12 11c0-3.500 2-5.500 6-5.500 0 3.500-2 5.500-6 5.500z"/></svg>
+</button>
+<div class="cur-ring" aria-hidden="true">View</div><div class="cur-dot" aria-hidden="true"></div>
+<div class="preview" aria-hidden="true"></div>
+
+<header>
+  <div class="wrap">
+    <a class="name" href="#top">Monalisa Thakur</a>
+    <nav>
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap">
+    <div class="hero">
+      <h1>Monalisa Thakur is a product designer who builds for <em>clarity</em> and <em>simplicity</em>.</h1>
+      <dl class="facts">
+        <div><dt>Currently</dt><dd>Designing at Omnissa, Bangalore</dd></div>
+        <div><dt>Previously</dt><dd>Titan and ISRO</dd></div>
+        <div><dt>Education</dt><dd>National Institute of Design, Ahmedabad</dd></div>
+      </dl>
+    </div>
+
+    <section id="work">
+      <div class="label">Selected work</div>
+
+      <a class="proj" href="#">
+        <span class="no">01</span>
+        <div><h2>Software Self-Service Portal</h2><div class="tags">Product design, Catalogue UX, Enterprise</div></div>
+        <p>Employees find, request and install approved apps from one catalogue, no ticket needed. Approval and install progress sit in a single timeline.</p>
+        <div class="thumb"><svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true"><rect width="400" height="300" fill="#efeeea"/><rect x="40" y="36" width="320" height="34" rx="17" fill="#fff" stroke="#141414" stroke-width="1.5"/><circle cx="62" cy="53" r="6" fill="none" stroke="#141414" stroke-width="1.5"/><rect x="80" y="50" width="90" height="6" rx="3" fill="#cfcec9"/>
+<g stroke="#141414" stroke-width="1.5" fill="#fff"><rect x="40" y="92" width="96" height="70" rx="12"/><rect x="152" y="92" width="96" height="70" rx="12" fill="#1f3a8a" stroke="#1f3a8a"/><rect x="264" y="92" width="96" height="70" rx="12"/><rect x="40" y="176" width="96" height="70" rx="12"/></g>
+<path d="M186 126l9 9 17-19" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="264" y="176" width="96" height="70" rx="12" fill="none" stroke="#141414" stroke-width="1.5" stroke-dasharray="4 5"/>
+<g fill="#cfcec9"><rect x="58" y="120" width="60" height="6" rx="3"/><rect x="58" y="134" width="36" height="6" rx="3"/><rect x="282" y="120" width="60" height="6" rx="3"/><rect x="282" y="134" width="36" height="6" rx="3"/><rect x="58" y="204" width="60" height="6" rx="3"/><rect x="58" y="218" width="36" height="6" rx="3"/></g>
+<line x1="40" y1="272" x2="360" y2="272" stroke="#141414" stroke-width="1.5"/><circle cx="40" cy="272" r="4" fill="#141414"/><circle cx="150" cy="272" r="4" fill="#141414"/><circle cx="260" cy="272" r="4" fill="#1f3a8a"/><circle cx="360" cy="272" r="4" fill="#fff" stroke="#141414" stroke-width="1.5"/></svg></div>
+      </a>
+
+      <a class="proj" href="#">
+        <span class="no">02</span>
+        <div><h2>Zero-Touch Laptop Onboarding</h2><div class="tags">Service design, Onboarding, Accessibility</div></div>
+        <p>A first-boot flow that enrolls, configures and secures a new laptop before sign-in. One progress screen replaces the setup checklist.</p>
+        <div class="thumb"><svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true"><rect width="400" height="300" fill="#efeeea"/><rect x="90" y="46" width="220" height="140" rx="10" fill="#fff" stroke="#141414" stroke-width="1.5"/><path d="M60 196h280l-14 18H74z" fill="#fff" stroke="#141414" stroke-width="1.5" stroke-linejoin="round"/>
+<rect x="118" y="78" width="164" height="8" rx="4" fill="#cfcec9"/><rect x="118" y="78" width="112" height="8" rx="4" fill="#1f3a8a"/>
+<g fill="none" stroke="#141414" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="126" cy="116" r="8" fill="#141414"/><path d="M122 116l3 3 5-6" stroke="#fff"/><circle cx="126" cy="142" r="8" fill="#141414"/><path d="M122 142l3 3 5-6" stroke="#fff"/><circle cx="126" cy="168" r="8" stroke="#1f3a8a"/></g>
+<g fill="#cfcec9"><rect x="146" y="112" width="100" height="7" rx="3.5"/><rect x="146" y="138" width="124" height="7" rx="3.5"/><rect x="146" y="164" width="80" height="7" rx="3.5"/></g>
+<text x="200" y="256" text-anchor="middle" font-family="IBM Plex Sans,Arial,sans-serif" font-size="14" fill="#141414">Step 3 of 4</text></svg></div>
+      </a>
+
+      <a class="proj" href="#">
+        <span class="no">03</span>
+        <div><h2>Live Support and Remote Assist</h2><div class="tags">Conversation UX, Research, Prototyping</div></div>
+        <p>In-app chat that hands off to screen share when a fix needs hands on the keyboard. The employee sees every action taken.</p>
+        <div class="thumb"><svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true"><rect width="400" height="300" fill="#efeeea"/><rect x="36" y="44" width="150" height="212" rx="12" fill="#fff" stroke="#141414" stroke-width="1.5"/>
+<rect x="50" y="62" width="104" height="30" rx="10" fill="#cfcec9"/><rect x="68" y="108" width="104" height="30" rx="10" fill="#1f3a8a"/><rect x="50" y="154" width="84" height="30" rx="10" fill="#cfcec9"/>
+<rect x="50" y="216" width="122" height="26" rx="13" fill="none" stroke="#141414" stroke-width="1.5"/>
+<rect x="206" y="64" width="160" height="116" rx="8" fill="#fff" stroke="#141414" stroke-width="1.5"/><line x1="206" y1="84" x2="366" y2="84" stroke="#141414" stroke-width="1.5"/>
+<g fill="#cfcec9"><rect x="222" y="100" width="70" height="7" rx="3.5"/><rect x="222" y="116" width="112" height="7" rx="3.5"/><rect x="222" y="132" width="52" height="7" rx="3.5"/></g>
+<rect x="296" y="124" width="52" height="30" rx="6" fill="none" stroke="#1f3a8a" stroke-width="2" stroke-dasharray="4 4"/>
+<path d="M330 142l0 22 6-6 5 11 4-2-5-11 8 0z" fill="#141414" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/>
+<rect x="206" y="204" width="106" height="30" rx="15" fill="#141414"/><circle cx="224" cy="219" r="4.5" fill="#fff"/><rect x="236" y="216" width="64" height="6" rx="3" fill="#fff"/></svg></div>
+      </a>
+
+      <a class="proj" href="#">
+        <span class="no">04</span>
+        <div><h2>Virtual Desktop Launcher</h2><div class="tags">VDI, Design systems, Cross-device</div></div>
+        <p>Pick a cloud desktop and resume from any device. Session state, latency and app availability show before you connect.</p>
+        <div class="thumb"><svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true"><rect width="400" height="300" fill="#efeeea"/><g stroke="#141414" stroke-width="1.5" fill="#fff"><rect x="36" y="70" width="104" height="150" rx="12"/><rect x="148" y="52" width="104" height="186" rx="12" fill="#141414"/><rect x="260" y="70" width="104" height="150" rx="12"/></g>
+<g fill="#cfcec9"><rect x="52" y="86" width="72" height="44" rx="6"/><rect x="276" y="86" width="72" height="44" rx="6"/></g>
+<rect x="164" y="68" width="72" height="44" rx="6" fill="#fff"/><g fill="#fff"><rect x="164" y="128" width="56" height="6" rx="3"/><rect x="164" y="144" width="38" height="6" rx="3" opacity=".6"/></g>
+<rect x="164" y="196" width="72" height="26" rx="13" fill="#1f3a8a"/><text x="200" y="213" text-anchor="middle" font-family="IBM Plex Sans,Arial,sans-serif" font-size="12" fill="#fff">Resume</text>
+<g fill="#141414"><rect x="52" y="146" width="56" height="6" rx="3"/><rect x="276" y="146" width="56" height="6" rx="3"/></g><g fill="#cfcec9"><rect x="52" y="162" width="40" height="6" rx="3"/><rect x="276" y="162" width="40" height="6" rx="3"/></g>
+<g font-family="IBM Plex Sans,Arial,sans-serif" font-size="11" fill="#141414"><text x="52" y="204">18 ms</text><text x="276" y="204">42 ms</text></g>
+<text x="200" y="268" text-anchor="middle" font-family="IBM Plex Sans,Arial,sans-serif" font-size="13" fill="#141414">Continue on any device</text></svg></div>
+      </a>
+
+      <a class="proj" href="#">
+        <span class="no">05</span>
+        <div><h2>Device Health and Compliance Hub</h2><div class="tags">Data viz, Content design, Security UX</div></div>
+        <p>One score says if a laptop is patched, encrypted and ready for work. Fixes take a single tap, in plain language.</p>
+        <div class="thumb"><svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true"><rect width="400" height="300" fill="#efeeea"/><circle cx="130" cy="150" r="70" fill="#fff" stroke="#cfcec9" stroke-width="14"/><path d="M130 80a70 70 0 1 1-66.6 91.4" fill="none" stroke="#1f3a8a" stroke-width="14" stroke-linecap="round"/>
+<text x="130" y="160" text-anchor="middle" font-family="Newsreader,Georgia,serif" font-size="46" fill="#141414">92</text><text x="130" y="182" text-anchor="middle" font-family="IBM Plex Sans,Arial,sans-serif" font-size="11" fill="#141414" letter-spacing="1.5">HEALTHY</text>
+<g stroke="#141414" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="246" cy="104" r="9" fill="#141414"/><path d="M242 104l3 3 5-6" stroke="#fff"/><circle cx="246" cy="148" r="9" fill="#141414"/><path d="M242 148l3 3 5-6" stroke="#fff"/><circle cx="246" cy="192" r="9" stroke="#1f3a8a" stroke-width="2"/></g>
+<g fill="#cfcec9"><rect x="268" y="100" width="90" height="7" rx="3.5"/><rect x="268" y="144" width="70" height="7" rx="3.5"/></g><rect x="268" y="188" width="90" height="7" rx="3.5" fill="#141414"/><rect x="268" y="204" width="48" height="7" rx="3.5" fill="#cfcec9"/></svg></div>
+      </a>
+    </section>
+
+    <section class="about" id="about">
+      <div class="label">About</div>
+      <p>I design the tools people use to get their work computers working, and I try to make each one say less and do more.</p>
+      <p>Based in Bangalore. Trained at NID, then product design at Titan and ISRO, now at Omnissa on end user computing.</p>
+    </section>
+  </div>
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <span><span id="clock">--:--</span> in Bangalore</span>
+    <div class="links">
+      <a href="#">LinkedIn</a>
+      <a href="#">Email</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var el=document.getElementById('clock');
+  function tick(){
+    try{
+      el.textContent=new Date().toLocaleTimeString('en-IN',{timeZone:'Asia/Kolkata',hour:'numeric',minute:'2-digit',hour12:true}).toUpperCase();
+    }catch(e){}
+  }
+  tick();setInterval(tick,30000);
+})();
+
+(function(){
+  var fine=window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var rows=[].slice.call(document.querySelectorAll('.proj'));
+
+  // staggered reveal
+  if('IntersectionObserver' in window&&!reduce){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting){var i=rows.indexOf(e.target);e.target.style.transitionDelay=(i%3)*80+'ms';e.target.classList.add('in');io.unobserve(e.target)}
+    })},{threshold:.15});
+    rows.forEach(function(r){io.observe(r)});
+  }else rows.forEach(function(r){r.classList.add('in')});
+
+  if(!fine)return;
+  var root=document.documentElement,dot=document.querySelector('.cur-dot'),ring=document.querySelector('.cur-ring'),pv=document.querySelector('.preview');
+  var mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my,px=mx,py=my,pr=0,seen=false,active=null;
+  root.classList.add('has-cursor');
+
+  addEventListener('mousemove',function(e){
+    mx=e.clientX;my=e.clientY;
+    if(!seen){seen=true;rx=px=mx;ry=py=my;root.classList.add('cur-on')}
+  },{passive:true});
+  document.addEventListener('mouseleave',function(){root.classList.remove('cur-on')});
+  document.addEventListener('mouseenter',function(){if(seen)root.classList.add('cur-on')});
+  addEventListener('mousedown',function(){root.classList.add('cur-down')});
+  addEventListener('mouseup',function(){root.classList.remove('cur-down')});
+
+  document.querySelectorAll('a,.shade-btn').forEach(function(a){
+    if(a.classList.contains('proj'))return;
+    a.addEventListener('mouseenter',function(){root.classList.add('cur-link')});
+    a.addEventListener('mouseleave',function(){root.classList.remove('cur-link')});
+  });
+
+  rows.forEach(function(r){
+    r.addEventListener('mouseenter',function(){
+      root.classList.add('cur-proj');
+      var html=r.querySelector('.thumb').innerHTML;
+      if(active!==r){pv.innerHTML=html;active=r}
+      pv.classList.remove('show');void pv.offsetWidth;pv.classList.add('show');
+    });
+    r.addEventListener('mouseleave',function(){
+      root.classList.remove('cur-proj');pv.classList.remove('show');active=null;
+    });
+  });
+
+  var k=reduce?1:.16,kr=reduce?1:.12;
+  (function loop(){
+    rx+=(mx-rx)*k;ry+=(my-ry)*k;
+    dot.style.transform='translate('+mx+'px,'+my+'px)';
+    ring.style.transform='translate('+rx+'px,'+ry+'px)';
+    // preview trails the cursor and tilts with horizontal velocity
+    var tx=mx+36,w=340,h=255;
+    if(tx+w>innerWidth-16)tx=mx-36-w;
+    var ty=Math.min(Math.max(my-h/2,16),innerHeight-h-16);
+    var vx=tx-px;
+    px+=(tx-px)*kr;py+=(ty-py)*kr;
+    pr+=(Math.max(-7,Math.min(7,vx*.05))-pr)*.15;
+    pv.style.transform='translate('+px+'px,'+py+'px) rotate('+(reduce?0:pr)+'deg)';
+    requestAnimationFrame(loop);
+  })();
+})();
+
+(function(){
+  var cvs=[].slice.call(document.querySelectorAll('.shade')),btn=document.querySelector('.shade-btn'),root=document.documentElement;
+  var cx=cvs.map(function(c){return c.getContext('2d')}),reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var K=[.38,.6],W=[0,0],H=[0,0],U=[1,1],narrow=matchMedia('(max-width:820px)'),raf=0,on=false;
+  function rng(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+  var R=rng(11);
+  // P: cubic bezier (fraction of viewport), amp: sway px at 1400 wide, f: sway speed, size: leaf length, n: leaves, w: stem width
+  var plants=[
+   {l:0,type:'twig', P:[[.03,1.08],[.00,.82],[.10,.60],[.05,.30]],amp:22,f:.55,ph:1.0,size:150,w:6,n:7},
+   {l:0,type:'frond',P:[[1.08,-.06],[.95,.18],[.82,.14],[.60,.40]],amp:28,f:.45,ph:2.2,size:190,w:6,n:20},
+   {l:1,type:'vine', P:[[.96,-.08],[.88,.30],[1.00,.52],[.88,.95]],amp:30,f:.75,ph:0.0,size:110,w:5,n:8},
+   {l:1,type:'frond',P:[[.12,1.08],[.08,.92],[.17,.78],[.11,.52]],amp:24,f:.50,ph:5.0,size:150,w:5,n:17}
+  ];
+  plants.forEach(function(p){
+    p.leaves=[];
+    for(var i=0;i<p.n;i++){
+      var base=p.type==='vine'?.10+.88*(i+R()*.5)/p.n:(i+1)/(p.n+1);
+      p.leaves.push({u:base,side:i%2?1:-1,s:.6+R()*.55,a:R(),ph:R()*6.28,ph2:R()*6.28,bend:(R()-.5)*.35});
+    }
+    p.tend=[];
+    if(p.type==='vine')for(var j=0;j<5;j++)p.tend.push({u:.22+.7*R(),side:R()<.5?-1:1,ph:R()*6.28});
+  });
+  function leafPath(c,kind,L,w,bend){
+    var tb=bend*L;c.beginPath();
+    if(kind===0){
+      c.moveTo(.04*L,0);
+      c.bezierCurveTo(-.14*L,-.5*w,.3*L,-1.05*w,.58*L,-.62*w+tb*.3);
+      c.bezierCurveTo(.8*L,-.34*w+tb*.6,.93*L,-.12*w+tb*.9,L,tb);
+      c.bezierCurveTo(.93*L,.12*w+tb*.9,.8*L,.34*w+tb*.6,.58*L,.62*w+tb*.3);
+      c.bezierCurveTo(.3*L,1.05*w,-.14*L,.5*w,.04*L,0);
+    }else{
+      c.moveTo(0,0);
+      c.bezierCurveTo(.18*L,-1.1*w+tb*.3,.72*L,-.9*w+tb*.8,L,tb);
+      c.bezierCurveTo(.72*L,.9*w+tb*.8,.18*L,1.1*w+tb*.3,0,0);
+    }
+    c.fill();
+  }
+  function leaf(c,kind,x,y,ang,L,w,bend,side,fs){c.save();c.translate(x,y);c.rotate(ang);c.scale(1,side*fs);leafPath(c,kind,L,w,bend);c.restore()}
+  function line(c,x1,y1,x2,y2,lw){c.lineWidth=lw;c.beginPath();c.moveTo(x1,y1);c.lineTo(x2,y2);c.stroke()}
+  function draw(t){
+    var g=.7*(.8+.22*Math.sin(t*.31)+.18*Math.sin(t*.77+1.3));
+    for(var li=0;li<2;li++){
+      var c=cx[li];c.clearRect(0,0,W[li],H[li]);
+      if(li===1&&narrow.matches)continue;
+      c.fillStyle=c.strokeStyle='#141414';c.lineCap='round';c.lineJoin='round';
+      plants.forEach(function(p){if(p.l===li)drawPlant(c,p,t,g,W[li],H[li],U[li])});
+    }
+  }
+  function drawPlant(c,p,t,g,w,h,u0){
+    var n=40,X=[],Y=[],A=[],i,P=p.P,amp=p.amp*u0*g;
+    for(i=0;i<=n;i++){
+      var u=i/n,m=1-u,
+        x=(m*m*m*P[0][0]+3*m*m*u*P[1][0]+3*m*u*u*P[2][0]+u*u*u*P[3][0])*w,
+        y=(m*m*m*P[0][1]+3*m*m*u*P[1][1]+3*m*u*u*P[2][1]+u*u*u*P[3][1])*h,
+        a=amp*Math.pow(u,1.5);
+      X.push(x+a*Math.sin(t*p.f+p.ph-u*2.2)+a*.4*Math.sin(t*p.f*1.9+p.ph*2-u*3.1));
+      Y.push(y+a*.6*Math.sin(t*p.f*.8+p.ph+1.1-u*1.7));
+    }
+    for(i=0;i<=n;i++){var j0=Math.max(0,i-1),j1=Math.min(n,i+1);A.push(Math.atan2(Y[j1]-Y[j0],X[j1]-X[j0]))}
+    function at(u){var f=u*n,k=Math.min(n-1,f|0),r=f-k;return{x:X[k]+(X[k+1]-X[k])*r,y:Y[k]+(Y[k+1]-Y[k])*r,a:A[k]+(A[k+1]-A[k])*r}}
+    function turn(l){return 1-.3*Math.min(g,1.6)*(.5+.5*Math.sin(t*1.4+l.ph2))}
+    function flut(l){return .12*Math.min(g,1.6)*Math.sin(t*1.9+l.ph)}
+    for(i=0;i<n;i++)line(c,X[i],Y[i],X[i+1],Y[i+1],p.w*u0*(1-.75*i/n));
+    var L0=p.size*u0;
+    p.leaves.forEach(function(l){
+      var s=at(l.u),L,ang;
+      if(p.type==='vine'){
+        L=L0*l.s*(1-.5*l.u);
+        ang=s.a+l.side*(.85+.5*l.a)+flut(l);
+        ang+=.32*Math.sin(Math.PI/2-ang);
+        var pl=.4*L,ex=s.x+Math.cos(ang)*pl,ey=s.y+Math.sin(ang)*pl;
+        line(c,s.x,s.y,ex,ey,1.7*u0);
+        leaf(c,0,ex,ey,ang,L,.52*L,l.bend,1,turn(l));
+      }else if(p.type==='twig'){
+        L=L0*l.s*(1-.45*l.u);
+        ang=s.a+l.side*(.8+.3*l.a)+flut(l);
+        leaf(c,1,s.x+Math.cos(ang)*.08*L,s.y+Math.sin(ang)*.08*L,ang,L,.28*L,l.bend,1,turn(l));
+        leaf(c,1,s.x,s.y,s.a-l.side*(.8+.3*l.a)+flut(l)*.8,L*.92,.28*L*.92,-l.bend,1,turn(l));
+      }else{
+        var k=l.u,len=L0*Math.pow(1-k,.55)*(k<.14?k/.14:1)*(.8+.3*l.a),sw=1.1-.25*k;
+        [-1,1].forEach(function(sd){
+          var a2=s.a+sd*sw+flut(l)*.7;a2+=.18*Math.sin(Math.PI/2-a2);
+          leaf(c,1,s.x,s.y,a2,len,.13*len,sd*.12,1,turn(l));
+        });
+      }
+    });
+    p.tend.forEach(function(d){
+      var s=at(d.u),th=s.a+d.side*1.2+.15*Math.sin(t*1.1+d.ph)*Math.min(g,1.6),x=s.x,y=s.y,st=7*u0;
+      c.lineWidth=1.1*u0;c.beginPath();c.moveTo(x,y);
+      for(var j=0;j<18;j++){x+=Math.cos(th)*st;y+=Math.sin(th)*st;th+=d.side*.5;st*=.9;c.lineTo(x,y)}
+      c.stroke();
+    });
+    if(p.type!=='frond'){
+      var e=at(1),tl={ph:p.ph,ph2:p.ph+1};
+      leaf(c,p.type==='vine'?0:1,e.x,e.y,e.a+.2*Math.sin(t*1.3+p.ph)*Math.min(g,1.6),L0*.5,(p.type==='vine'?.52:.28)*L0*.5,.05,1,turn(tl));
+    }
+  }
+  function size(){
+    for(var i=0;i<2;i++){
+      W[i]=cvs[i].width=Math.round(innerWidth*K[i]);H[i]=cvs[i].height=Math.round(innerHeight*K[i]);
+      U[i]=Math.max(innerWidth,innerHeight)*K[i]/1400;
+    }
+  }
+  function loop(ms){draw(ms/1000);raf=requestAnimationFrame(loop)}
+  function start(){if(raf||document.hidden)return;if(reduce){draw(3);return}raf=requestAnimationFrame(loop)}
+  function stop(){cancelAnimationFrame(raf);raf=0}
+  function set(v){
+    on=v;root.classList.toggle('shade-on',v);btn.setAttribute('aria-pressed',v);
+    try{localStorage.setItem('shade',v?'1':'0')}catch(e){}
+    if(v){size();start()}else setTimeout(function(){if(!on)stop()},1700);
+  }
+  btn.addEventListener('click',function(){set(!on)});
+  addEventListener('resize',function(){if(on){size();if(reduce)draw(3)}});
+  document.addEventListener('visibilitychange',function(){document.hidden?stop():on&&start()});
+  var saved=null;try{saved=localStorage.getItem('shade')}catch(e){}
+  if(saved==='1')set(true);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Monalisa Thakur: Plant shadows</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,200;0,6..72,700;1,6..72,300&display=swap" rel="stylesheet">
+<style>
+:root{--wall:#d6d3cc;--ink:#141414;--mute:#46443f;--accent:#1f3a8a;--ease:cubic-bezier(0.16,1,0.3,1)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--wall);color:var(--ink);font:19px/1.55 "IBM Plex Sans",sans-serif;overflow:hidden}
+
+/* wall: light falls from the upper right, corners settle darker */
+.wall{position:fixed;inset:0;background:
+  radial-gradient(120% 90% at 88% 0%,rgba(244,241,234,.85) 0,rgba(244,241,234,0) 62%),
+  radial-gradient(110% 100% at 0% 100%,rgba(70,66,60,.20) 0,rgba(70,66,60,0) 62%)}
+canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}
+/* far plant: soft penumbra. near plant: crisper and darker */
+.far{filter:blur(10px);opacity:.15;transform:scale(1.05)}
+.near{filter:blur(2.8px);opacity:.30;transform:scale(1.02)}
+.grain{position:fixed;inset:0;pointer-events:none;opacity:.08;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1.1 -.1'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+
+.page{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:32px clamp(20px,5vw,72px) clamp(28px,6vh,64px)}
+header{display:flex;justify-content:space-between;align-items:baseline;gap:16px}
+.name{font:500 19px/1 "IBM Plex Sans",sans-serif;letter-spacing:.01em}
+.back{color:var(--ink);text-decoration:none;font-size:18px;background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;padding-bottom:3px;transition:background-size .6s var(--ease)}
+.back:hover,.back:focus-visible{background-size:100% 1px;outline:none}
+h1{font:200 clamp(3rem,9vw,8.5rem)/.95 "Newsreader",serif;letter-spacing:-.025em;max-width:11ch}
+h1 em{font-style:italic;font-weight:300;color:var(--accent)}
+.lede{margin-top:22px;max-width:30em;color:var(--mute)}
+.breeze{margin-top:26px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:17px}
+.breeze span{color:var(--mute);margin-right:10px}
+.breeze button{font:inherit;color:var(--ink);background:none;border:0;border-radius:999px;padding:6px 14px;cursor:pointer;transition:background .5s var(--ease),color .5s var(--ease)}
+.breeze button:hover{background:rgba(20,20,20,.08)}
+.breeze button[aria-pressed="true"]{background:var(--ink);color:#f4f1ea}
+.breeze button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.breeze{display:none}}
+@media (max-width:640px){body{font-size:18px}.far{filter:blur(7px)}}
+</style>
+</head>
+<body>
+<div class="wall"></div>
+<canvas class="far" aria-hidden="true"></canvas>
+<canvas class="near" aria-hidden="true"></canvas>
+<div class="grain"></div>
+
+<div class="page">
+  <header>
+    <span class="name">Monalisa Thakur</span>
+    <a class="back" href="minimal.html">Back to portfolio</a>
+  </header>
+  <main>
+    <h1>Shadows on a <em>wall</em></h1>
+    <p class="lede">A study in code. Every leaf, stem and tendril is drawn from a few curves and moved by a breeze that rises and falls.</p>
+    <div class="breeze" role="group" aria-label="Breeze strength">
+      <span>Breeze</span>
+      <button type="button" data-w="0">Still</button>
+      <button type="button" data-w="0.6">Gentle</button>
+      <button type="button" data-w="1.5">Windy</button>
+    </div>
+  </main>
+</div>
+
+<script>
+(function(){
+var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+var cv=[document.querySelector('.far'),document.querySelector('.near')];
+var K=[.38,.6]; // canvas scale per layer (far layer is blurred, so it can be coarser)
+var cx=cv.map(function(c){return c.getContext('2d')});
+var wind=reduce?0:.6, W=[0,0], H=[0,0], U=[1,1];
+
+function rng(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+var R=rng(11);
+
+/* P = cubic bezier control points (0..1 of the viewport), amp = sway in px at 1400 wide,
+   f = sway speed, size = leaf length at 1400 wide, n = leaves/pairs, w = stem width */
+var plants=[
+ {l:0,type:'twig', P:[[-.08,.42],[.10,.30],[.26,.38],[.44,.20]],amp:22,f:.55,ph:1.0,size:150,w:6,n:10},
+ {l:0,type:'frond',P:[[1.08,-.06],[.95,.18],[.82,.14],[.60,.40]],amp:28,f:.45,ph:2.2,size:190,w:6,n:30},
+ {l:0,type:'vine', P:[[-.06,-.08],[.12,.10],[.04,.40],[.20,.78]],amp:24,f:.60,ph:4.0,size:130,w:5,n:11},
+ {l:1,type:'vine', P:[[.96,-.08],[.88,.30],[1.00,.52],[.88,.95]],amp:30,f:.75,ph:0.0,size:110,w:5,n:13},
+ {l:1,type:'twig', P:[[.50,1.08],[.58,.92],[.74,.88],[.84,.66]],amp:26,f:.65,ph:3.0,size:120,w:5,n:11},
+ {l:1,type:'frond',P:[[-.06,.98],[.12,.84],[.20,.92],[.38,.72]],amp:24,f:.50,ph:5.0,size:150,w:5,n:26}
+];
+
+/* fixed random traits per leaf so the plant looks the same every frame */
+plants.forEach(function(p){
+  p.leaves=[];
+  for(var i=0;i<p.n;i++){
+    var base=p.type==='vine'?.10+.88*(i+R()*.5)/p.n:(i+1)/(p.n+1);
+    p.leaves.push({u:base,side:i%2?1:-1,s:.6+R()*.55,a:R(),ph:R()*6.28,ph2:R()*6.28,bend:(R()-.5)*.35});
+  }
+  p.tend=[];
+  if(p.type==='vine')for(var j=0;j<5;j++)p.tend.push({u:.22+.7*R(),side:R()<.5?-1:1,ph:R()*6.28});
+});
+
+/* leaf outlines, base at the origin, tip at (L,bend*L). w sets the width */
+function leafPath(c,kind,L,w,bend){
+  var tb=bend*L;
+  c.beginPath();
+  if(kind===0){ // heart shaped, pothos/ivy
+    c.moveTo(.04*L,0);
+    c.bezierCurveTo(-.14*L,-.5*w,.3*L,-1.05*w,.58*L,-.62*w+tb*.3);
+    c.bezierCurveTo(.8*L,-.34*w+tb*.6,.93*L,-.12*w+tb*.9,L,tb);
+    c.bezierCurveTo(.93*L,.12*w+tb*.9,.8*L,.34*w+tb*.6,.58*L,.62*w+tb*.3);
+    c.bezierCurveTo(.3*L,1.05*w,-.14*L,.5*w,.04*L,0);
+  }else{ // lanceolate, olive/fern leaflet
+    c.moveTo(0,0);
+    c.bezierCurveTo(.18*L,-1.1*w+tb*.3,.72*L,-.9*w+tb*.8,L,tb);
+    c.bezierCurveTo(.72*L,.9*w+tb*.8,.18*L,1.1*w+tb*.3,0,0);
+  }
+  c.fill();
+}
+function leaf(c,kind,x,y,ang,L,w,bend,side,fs){
+  c.save();c.translate(x,y);c.rotate(ang);c.scale(1,side*fs);
+  leafPath(c,kind,L,w,bend);c.restore();
+}
+function line(c,x1,y1,x2,y2,lw){c.lineWidth=lw;c.beginPath();c.moveTo(x1,y1);c.lineTo(x2,y2);c.stroke()}
+
+function draw(t){
+  var g=wind*(.8+.22*Math.sin(t*.31)+.18*Math.sin(t*.77+1.3)); // slow gusts
+  for(var li=0;li<2;li++){
+    var c=cx[li],w=W[li],h=H[li],u0=U[li];
+    c.clearRect(0,0,w,h);
+    c.fillStyle=c.strokeStyle='#000';c.lineCap='round';c.lineJoin='round';
+    plants.forEach(function(p){ if(p.l===li)drawPlant(c,p,t,g,w,h,u0); });
+  }
+}
+
+function drawPlant(c,p,t,g,w,h,u0){
+  var n=40,X=[],Y=[],A=[],i,P=p.P,amp=p.amp*u0*g;
+  for(i=0;i<=n;i++){
+    var u=i/n,m=1-u,
+      x=(m*m*m*P[0][0]+3*m*m*u*P[1][0]+3*m*u*u*P[2][0]+u*u*u*P[3][0])*w,
+      y=(m*m*m*P[0][1]+3*m*m*u*P[1][1]+3*m*u*u*P[2][1]+u*u*u*P[3][1])*h,
+      a=amp*Math.pow(u,1.5);
+    X.push(x+a*Math.sin(t*p.f+p.ph-u*2.2)+a*.4*Math.sin(t*p.f*1.9+p.ph*2-u*3.1));
+    Y.push(y+a*.6*Math.sin(t*p.f*.8+p.ph+1.1-u*1.7));
+  }
+  for(i=0;i<=n;i++){var j0=Math.max(0,i-1),j1=Math.min(n,i+1);A.push(Math.atan2(Y[j1]-Y[j0],X[j1]-X[j0]));}
+  function at(u){var f=u*n,k=Math.min(n-1,f|0),r=f-k;return{x:X[k]+(X[k+1]-X[k])*r,y:Y[k]+(Y[k+1]-Y[k])*r,a:A[k]+(A[k+1]-A[k])*r}}
+  function turn(l){return 1-.3*Math.min(g,1.6)*(.5+.5*Math.sin(t*1.4+l.ph2))} // leaf turning in the air
+  function flut(l){return .12*Math.min(g,1.6)*Math.sin(t*1.9+l.ph)}
+
+  // stem, tapering toward the tip
+  for(i=0;i<n;i++)line(c,X[i],Y[i],X[i+1],Y[i+1],p.w*u0*(1-.75*i/n));
+
+  var L0=p.size*u0;
+  p.leaves.forEach(function(l){
+    var s=at(l.u),L,ang;
+    if(p.type==='vine'){
+      L=L0*l.s*(1-.5*l.u);
+      ang=s.a+l.side*(.85+.5*l.a)+flut(l);
+      ang+=.32*Math.sin(Math.PI/2-ang); // leaves hang under their own weight
+      var pl=.4*L,ex=s.x+Math.cos(ang)*pl,ey=s.y+Math.sin(ang)*pl;
+      line(c,s.x,s.y,ex,ey,1.7*u0);
+      leaf(c,0,ex,ey,ang,L,.52*L,l.bend,1,turn(l));
+    }else if(p.type==='twig'){
+      L=L0*l.s*(1-.45*l.u);
+      ang=s.a+l.side*(.8+.3*l.a)+flut(l);
+      var ex2=s.x+Math.cos(ang)*.08*L,ey2=s.y+Math.sin(ang)*.08*L;
+      leaf(c,1,ex2,ey2,ang,L,.28*L,l.bend,1,turn(l));
+      // opposite partner
+      var ang2=s.a-l.side*(.8+.3*l.a)+flut(l)*.8;
+      leaf(c,1,s.x,s.y,ang2,L*.92,.28*L*.92,-l.bend,1,turn(l));
+    }else{ // frond: narrow leaflets on both sides of the rib
+      var k=l.u,len=L0*Math.pow(1-k,.55)*(k<.14?k/.14:1)*(.8+.3*l.a);
+      var sw=1.1-.25*k;
+      [-1,1].forEach(function(sd){
+        var a2=s.a+sd*sw+flut(l)*.7;
+        a2+=.18*Math.sin(Math.PI/2-a2);
+        leaf(c,1,s.x,s.y,a2,len,.13*len,sd*.12,1,turn(l));
+      });
+    }
+  });
+
+  // curling tendrils on vines
+  p.tend.forEach(function(d){
+    var s=at(d.u),th=s.a+d.side*1.2+.15*Math.sin(t*1.1+d.ph)*Math.min(g,1.6),
+        x=s.x,y=s.y,st=7*u0;
+    c.lineWidth=1.1*u0;c.beginPath();c.moveTo(x,y);
+    for(var j=0;j<18;j++){x+=Math.cos(th)*st;y+=Math.sin(th)*st;th+=d.side*.5;st*=.9;c.lineTo(x,y)}
+    c.stroke();
+  });
+
+  // terminal leaf at the tip of twigs and vines
+  if(p.type!=='frond'){
+    var e=at(1),tl={ph:p.ph,ph2:p.ph+1};
+    leaf(c,p.type==='vine'?0:1,e.x,e.y,e.a+.2*Math.sin(t*1.3+p.ph)*Math.min(g,1.6),L0*.5,(p.type==='vine'?.52:.28)*L0*.5,.05,1,turn(tl));
+  }
+}
+
+function resize(){
+  var vw=innerWidth,vh=innerHeight;
+  for(var i=0;i<2;i++){
+    W[i]=cv[i].width=Math.round(vw*K[i]);H[i]=cv[i].height=Math.round(vh*K[i]);
+    U[i]=Math.max(vw,vh)*K[i]/1400;
+  }
+  if(!running)draw(performance.now()/1000);
+}
+
+var running=false,raf=0;
+function tick(ms){draw(ms/1000);raf=requestAnimationFrame(tick)}
+function start(){if(reduce||running)return;running=true;raf=requestAnimationFrame(tick)}
+function stop(){running=false;cancelAnimationFrame(raf)}
+
+addEventListener('resize',resize);
+document.addEventListener('visibilitychange',function(){document.hidden?stop():start()});
+
+var btns=document.querySelectorAll('.breeze button');
+function setWind(v){
+  wind=v;
+  btns.forEach(function(b){b.setAttribute('aria-pressed',String(parseFloat(b.dataset.w)===v))});
+}
+btns.forEach(function(b){b.addEventListener('click',function(){setWind(parseFloat(b.dataset.w))})});
+setWind(wind);
+
+resize();
+if(reduce){draw(3)}else{start()}
+})();
+</script>
+</body>
+</html>

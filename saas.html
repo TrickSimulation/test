@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Monalisa Thakur | Product Designer, Enterprise SaaS</title>
+<meta name="description" content="Senior product designer for enterprise software and AI-assisted workflows. Ex Titan and ISRO, now at Omnissa, Bangalore. NID alumna.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,500;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f6f3ec;--card:#fffdf8;--ink:#17150f;--mute:#5b574c;--line:#ddd7c8;--sig:#c2410c;--sig-soft:#fbe6d8;--ease:cubic-bezier(0.16,1,0.3,1)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font:400 19px/1.6 'Figtree',sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px}
+.mono{font-family:'JetBrains Mono',monospace;font-size:14px;letter-spacing:.04em;text-transform:uppercase;color:var(--mute)}
+header{position:sticky;top:0;z-index:20;background:rgba(246,243,236,.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{font:800 21px 'Bricolage Grotesque',sans-serif;text-decoration:none;letter-spacing:-.02em}
+nav{display:flex;gap:28px;align-items:center}
+nav a{font-weight:500;font-size:17px;text-decoration:none;color:var(--mute);transition:color .4s var(--ease)}
+nav a:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 24px;border:1.5px solid var(--ink);border-radius:999px;font-weight:600;font-size:17px;text-decoration:none;transition:background .5s var(--ease),color .5s var(--ease),transform .5s var(--ease)}
+.btn.solid{background:var(--ink);color:var(--paper)}
+.btn:hover{transform:translateY(-2px)}
+.btn.solid:hover{background:var(--sig);border-color:var(--sig)}
+.btn:not(.solid):hover{background:var(--ink);color:var(--paper)}
+.btn svg{width:18px;height:18px;transition:transform .5s var(--ease)}
+.btn:hover svg{transform:translateX(4px)}
+/* hero */
+.hero{padding:96px 0 72px}
+.open{display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border:1px solid var(--line);border-radius:999px;background:var(--card);font-size:16px;font-weight:500}
+.open i{width:9px;height:9px;border-radius:50%;background:#2f8f4e;box-shadow:0 0 0 0 rgba(47,143,78,.5);animation:pulse 2.4s var(--ease) infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(47,143,78,0)}100%{box-shadow:0 0 0 0 rgba(47,143,78,0)}}
+h1{font:800 clamp(46px,8.4vw,112px)/.96 'Bricolage Grotesque',sans-serif;letter-spacing:-.045em;margin:34px 0 34px;max-width:12ch}
+h1 em{font-style:normal;font-weight:300;color:var(--sig)}
+.lede{font-size:clamp(21px,2.3vw,26px);line-height:1.5;max-width:34em;color:var(--mute)}
+.lede b{color:var(--ink);font-weight:600}
+.cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:40px}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);border-top:1.5px solid var(--ink);margin-top:80px}
+.facts div{padding:22px 24px 0 0}
+.facts b{display:block;font:500 25px/1.2 'Bricolage Grotesque',sans-serif;margin-top:6px}
+/* sections */
+section{padding:88px 0;border-top:1px solid var(--line)}
+.sh{display:grid;grid-template-columns:260px 1fr;gap:40px;margin-bottom:52px}
+h2{font:800 clamp(34px,4.6vw,58px)/1.02 'Bricolage Grotesque',sans-serif;letter-spacing:-.035em;max-width:16ch}
+h2 em{font-style:normal;font-weight:300;color:var(--sig)}
+/* case studies */
+.case{display:grid;grid-template-columns:260px 1fr;gap:40px;padding:44px 0;border-top:1px solid var(--line)}
+.case:first-of-type{border-top:1.5px solid var(--ink)}
+.case .no{font:800 64px/1 'Bricolage Grotesque',sans-serif;color:var(--line);transition:color .6s var(--ease)}
+.case:hover .no{color:var(--sig)}
+.case h3{font:800 clamp(26px,3vw,36px)/1.08 'Bricolage Grotesque',sans-serif;letter-spacing:-.025em;margin-bottom:8px}
+.case .role{margin-bottom:26px}
+.rows{display:grid;gap:0}
+.rows div{display:grid;grid-template-columns:110px 1fr;gap:18px;padding:14px 0;border-top:1px dashed var(--line)}
+.rows dt{font:500 13px 'JetBrains Mono',monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);padding-top:5px}
+.rows dd{max-width:36em}
+.metric{display:inline-block;margin-top:8px;padding:3px 12px;border:1.5px dashed var(--sig);border-radius:6px;background:var(--sig-soft);color:var(--sig);font:500 14px 'JetBrains Mono',monospace}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.tags span{padding:5px 14px;border:1px solid var(--line);border-radius:999px;background:var(--card);font-size:15px;font-weight:500;color:var(--mute)}
+/* ai */
+.ai{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border-top:1.5px solid var(--ink)}
+.ai article{padding:32px 36px 36px 0;border-bottom:1px solid var(--line)}
+.ai article:nth-child(even){padding-left:36px;padding-right:0;border-left:1px solid var(--line)}
+.ai h3{font:800 25px/1.15 'Bricolage Grotesque',sans-serif;letter-spacing:-.02em;margin:12px 0 10px}
+.ai p{color:var(--mute);max-width:26em}
+.ai svg{width:30px;height:30px;stroke:var(--sig);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+/* focus */
+.focus{display:flex;flex-wrap:wrap;gap:12px}
+.focus span{padding:12px 22px;border:1.5px solid var(--ink);border-radius:999px;font:500 19px 'Bricolage Grotesque',sans-serif}
+.focus span:nth-child(3n+1){background:var(--ink);color:var(--paper)}
+/* contact */
+.contact{background:var(--ink);color:var(--paper);border:0;padding:112px 0}
+.contact h2{max-width:14ch;font-size:clamp(40px,7vw,92px)}
+.contact h2 em{color:#f59e6b}
+.contact p{color:#bdb7a8;margin:24px 0 38px;max-width:30em}
+.contact .btn{border-color:var(--paper)}
+.contact .btn.solid{background:var(--paper);color:var(--ink)}
+.contact .btn.solid:hover{background:var(--sig);color:#fff;border-color:var(--sig)}
+.contact .btn:not(.solid):hover{background:var(--paper);color:var(--ink)}
+footer{padding:28px 0;border-top:1px solid #34312a;background:var(--ink);color:#8d8777;font-size:15px}
+/* reveal */
+.rv{opacity:0;transform:translateY(26px);transition:opacity 1.1s var(--ease),transform 1.1s var(--ease);transition-delay:calc(var(--i,0)*90ms)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.open i{animation:none}}
+@media (max-width:860px){
+  body{font-size:18px}.wrap{padding:0 20px}
+  nav a:not(.btn){display:none}
+  .hero{padding:56px 0 48px}
+  .facts{grid-template-columns:1fr 1fr;margin-top:56px}.facts div{padding-bottom:20px}
+  .sh,.case{grid-template-columns:1fr;gap:14px}
+  .case .no{font-size:44px}
+  .rows div{grid-template-columns:1fr;gap:2px}
+  .ai{grid-template-columns:1fr}.ai article,.ai article:nth-child(even){padding:28px 0;border-left:0}
+  section{padding:60px 0}
+}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="logo" href="#top">Monalisa Thakur</a>
+  <nav><a href="#work">Work</a><a href="#ai">AI and craft</a><a href="#focus">Focus</a><a class="btn" href="#contact" style="padding:10px 20px;font-size:16px">Contact</a></nav>
+</div></header>
+
+<main id="top">
+<div class="wrap hero">
+  <span class="open rv"><i></i>Open to senior and lead product design roles. Bangalore or remote.</span>
+  <h1 class="rv" style="--i:1">Enterprise software people <em>stop noticing.</em></h1>
+  <p class="lede rv" style="--i:2">I'm a product designer for <b>B2B SaaS and end-user computing</b>. I make complex admin and employee workflows feel obvious, and I design the new AI-assisted parts so people can trust them.</p>
+  <div class="cta rv" style="--i:3">
+    <a class="btn solid" href="#work">See selected work <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <a class="btn" href="#contact">Get in touch</a>
+  </div>
+  <div class="facts rv" style="--i:4">
+    <div><span class="mono">Now</span><b>Omnissa</b></div>
+    <div><span class="mono">Before</span><b>Titan, ISRO</b></div>
+    <div><span class="mono">Trained at</span><b>NID</b></div>
+    <div><span class="mono">Based in</span><b>Bangalore</b></div>
+  </div>
+</div>
+
+<section id="work"><div class="wrap">
+  <div class="sh"><span class="mono rv">Selected work</span><h2 class="rv" style="--i:1">Five flows, each judged by <em>what changed.</em></h2></div>
+
+  <article class="case rv">
+    <div class="no">01</div>
+    <div>
+      <h3>Software self-service portal</h3>
+      <p class="mono role">Lead designer. Catalogue UX, enterprise</p>
+      <dl class="rows">
+        <div><dt>Problem</dt><dd>Employees raised tickets to get approved apps, and IT carried the queue.</dd></div>
+        <div><dt>Decision</dt><dd>One catalogue to find, request and install, with approval and install progress in a single timeline.</dd></div>
+        <div><dt>Result</dt><dd>No ticket needed for approved apps.<br><span class="metric">add: tickets avoided or time to install</span></dd></div>
+      </dl>
+      <div class="tags"><span>Product design</span><span>Information architecture</span><span>Enterprise</span></div>
+    </div>
+  </article>
+
+  <article class="case rv">
+    <div class="no">02</div>
+    <div>
+      <h3>Zero-touch laptop onboarding</h3>
+      <p class="mono role">Service design. Onboarding, accessibility</p>
+      <dl class="rows">
+        <div><dt>Problem</dt><dd>New hires faced a long setup checklist before they could do any work.</dd></div>
+        <div><dt>Decision</dt><dd>A first-boot flow that enrolls, configures and secures the laptop before sign-in, behind one progress screen.</dd></div>
+        <div><dt>Result</dt><dd>A new laptop is ready without a checklist.<br><span class="metric">add: setup time before and after</span></dd></div>
+      </dl>
+      <div class="tags"><span>Service design</span><span>Onboarding</span><span>Accessibility</span></div>
+    </div>
+  </article>
+
+  <article class="case rv">
+    <div class="no">03</div>
+    <div>
+      <h3>Live support and remote assist</h3>
+      <p class="mono role">Product design. Support, trust and consent</p>
+      <dl class="rows">
+        <div><dt>Problem</dt><dd>Fixes that needed hands on the keyboard meant long calls and screen-share links.</dd></div>
+        <div><dt>Decision</dt><dd>In-app chat that hands off to screen share, with the employee's consent visible at every step.</dd></div>
+        <div><dt>Result</dt><dd>Help moves from chat to a fix in one place.<br><span class="metric">add: resolution time or CSAT</span></dd></div>
+      </dl>
+      <div class="tags"><span>Support UX</span><span>Consent patterns</span><span>Realtime</span></div>
+    </div>
+  </article>
+
+  <article class="case rv">
+    <div class="no">04</div>
+    <div>
+      <h3>Device health dashboard</h3>
+      <p class="mono role">Product design. Data, admin tooling</p>
+      <dl class="rows">
+        <div><dt>Problem</dt><dd>Admins saw a wall of device data and still could not tell what needed action first.</dd></div>
+        <div><dt>Decision</dt><dd>Lead with the few issues that matter, each with a clear next step, and keep the raw data one click away.</dd></div>
+        <div><dt>Result</dt><dd>Admins act on what matters first.<br><span class="metric">add: time to resolve or alerts actioned</span></dd></div>
+      </dl>
+      <div class="tags"><span>Dashboards</span><span>Data design</span><span>Admin UX</span></div>
+    </div>
+  </article>
+
+  <article class="case rv">
+    <div class="no">05</div>
+    <div>
+      <h3>Unified employee workspace</h3>
+      <p class="mono role">Design system. Cross-product consistency</p>
+      <dl class="rows">
+        <div><dt>Problem</dt><dd>Employees met a different look and pattern in every tool they were handed.</dd></div>
+        <div><dt>Decision</dt><dd>One shared set of components and patterns across the workspace, documented so teams reuse it.</dd></div>
+        <div><dt>Result</dt><dd>Fewer one-off screens and faster design handoff.<br><span class="metric">add: components reused or build time saved</span></dd></div>
+      </dl>
+      <div class="tags"><span>Design system</span><span>Consistency</span><span>Handoff</span></div>
+    </div>
+  </article>
+</div></section>
+
+<section id="ai"><div class="wrap">
+  <div class="sh"><span class="mono rv">AI and craft</span><h2 class="rv" style="--i:1">Designing the AI parts, <em>and working faster with it.</em></h2></div>
+  <div class="ai">
+    <article class="rv"><svg viewBox="0 0 24 24"><path d="M12 3l2.2 5.6L20 11l-5.8 2.4L12 19l-2.2-5.6L4 11l5.8-2.4z"/></svg><h3>Trust in AI output</h3><p>Show where an answer came from, how sure the system is, and how to correct it.</p></article>
+    <article class="rv" style="--i:1"><svg viewBox="0 0 24 24"><path d="M9 14L4 9l5-5M4 9h11a5 5 0 010 10h-3"/></svg><h3>Control and undo</h3><p>Agents that act for users need clear limits, a preview before the action, and a way back.</p></article>
+    <article class="rv" style="--i:2"><svg viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><h3>Prototype in code</h3><p>Working prototypes that engineers can read and test with real users, not only static screens.</p></article>
+    <article class="rv" style="--i:3"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg><h3>Measure what shipped</h3><p>Every project carries a number: time saved, tickets avoided, tasks completed.</p></article>
+  </div>
+</div></section>
+
+<section id="focus"><div class="wrap">
+  <div class="sh"><span class="mono rv">Focus</span><h2 class="rv" style="--i:1">Where I'm <em>most useful.</em></h2></div>
+  <div class="focus rv">
+    <span>Enterprise SaaS</span><span>End-user computing</span><span>Design systems</span><span>Accessibility</span><span>AI-assisted workflows</span><span>Admin and data tools</span><span>Onboarding</span>
+  </div>
+</div></section>
+
+<section class="contact" id="contact"><div class="wrap">
+  <h2 class="rv">Hiring for a hard enterprise problem? <em>Let's talk.</em></h2>
+  <p class="rv" style="--i:1">I'm looking for senior and lead product design roles on B2B or AI-assisted products. Full case studies and a resume on request.</p>
+  <div class="cta rv" style="--i:2">
+    <a class="btn solid" href="mailto:hello@example.com">hello@example.com <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <a class="btn" href="#">LinkedIn</a>
+    <a class="btn" href="#">Resume (PDF)</a>
+  </div>
+</div></section>
+</main>
+<footer><div class="wrap">Monalisa Thakur. Product designer, Bangalore.</div></footer>
+
+<script>
+(function(){
+  var els=[].slice.call(document.querySelectorAll('.rv'));
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>
