@@ -97,12 +97,12 @@ footer a:hover{border-color:var(--ink)}
 .shade.far{filter:blur(10px)}
 .shade.near{filter:blur(4px)}
 .shade{transform:scale(1.05);-webkit-mask-image:linear-gradient(90deg,#000 0,#000 calc(50% - 620px),rgba(0,0,0,.1) calc(50% - 440px),rgba(0,0,0,.1) calc(50% + 440px),#000 calc(50% + 620px),#000 100%);mask-image:linear-gradient(90deg,#000 0,#000 calc(50% - 620px),rgba(0,0,0,.1) calc(50% - 440px),rgba(0,0,0,.1) calc(50% + 440px),#000 calc(50% + 620px),#000 100%)}
-@media (max-width:1100px){html.shade-on .shade.far{opacity:.045}html.shade-on .shade.near{opacity:.07}}
+@media (max-width:1100px){html.shade-on .shade.far{opacity:.08}html.shade-on .shade.near{opacity:.12}}
 @media (max-width:820px){.shade.near{display:none}}
 .shade,.grain{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:-1;opacity:0;transition:opacity 1.6s var(--ease)}
 .grain{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-html.shade-on .shade.far{opacity:.07}
-html.shade-on .shade.near{opacity:.11}
+html.shade-on .shade.far{opacity:.13}
+html.shade-on .shade.near{opacity:.2}
 html.shade-on .grain{opacity:.045}
 .shade-btn{position:fixed;right:20px;bottom:20px;z-index:30;width:46px;height:46px;border-radius:50%;border:1.5px solid var(--ink);background:rgba(255,255,255,.85);color:var(--ink);display:grid;place-items:center;cursor:pointer;padding:0;transition:background .4s var(--ease),color .4s var(--ease),transform .6s var(--ease)}
 .shade-btn:hover{transform:rotate(-12deg) scale(1.06)}
@@ -441,14 +441,14 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
   function stop(){cancelAnimationFrame(raf);raf=0}
   function set(v){
     on=v;root.classList.toggle('shade-on',v);btn.setAttribute('aria-pressed',v);
-    try{localStorage.setItem('shade',v?'1':'0')}catch(e){}
+    try{localStorage.setItem('shade-plants',v?'1':'0')}catch(e){}
     if(v){size();start()}else setTimeout(function(){if(!on)stop()},1700);
   }
   btn.addEventListener('click',function(){set(!on)});
   addEventListener('resize',function(){if(on){size();if(reduce)draw(3)}});
   document.addEventListener('visibilitychange',function(){document.hidden?stop():on&&start()});
-  var saved=null;try{saved=localStorage.getItem('shade')}catch(e){}
-  if(saved==='1')set(true);
+  var saved=null;try{saved=localStorage.getItem('shade-plants')}catch(e){}
+  if(saved!=='0')set(true);
 })();
 </script>
 </body>
